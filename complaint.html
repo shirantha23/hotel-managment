@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        form, .complaints-list {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .error {
+            color: #d9534f;
+        }
+    </style>
+    <script>
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            var complaint = document.getElementById("complaint").value;
+            if (username.trim() == "" || complaint.trim() == "") {
+                alert("Username and complaint fields cannot be empty.");
+                return false;
+            }
+            return true;
+        }
+
+        function loadComplaints() {
+            fetch('load_complaints.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.querySelector('.complaints-list').innerHTML = data;
+                });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            loadComplaints();
+        });
+    </script>
+</head>
+<body>
+    <h2>Submit a Complaint</h2>
+    <form action="submit_complaint.php" method="post" onsubmit="return validateForm()">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br><br>
+        <label for="area">Area of Complaint:</label>
+        <select id="area" name="area" required>
+            <option value="Room">Room</option>
+            <option value="Garden">Garden</option>
+            <option value="Pool">Pool</option>
+            <option value="Parking Area">Parking Area</option>
+            <option value="Kitchen">Kitchen</option>
+            <option value="Mainhall">Mainhall</option>
+            <option value="Other">Other</option>
+        </select>
+        <br><br>
+        <label for="complaint">Complaint:</label>
+        <textarea id="complaint" name="complaint" rows="4" required></textarea>
+        <br><br>
+        <button type="submit">Submit Complaint</button>
+    </form>
+    <h2>Your Complaints</h2>
+    <div class="complaints-list">
+        <!-- Complaints will be dynamically loaded here -->
+    </div>
+</body>
+</html>
