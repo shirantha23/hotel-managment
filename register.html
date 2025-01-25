@@ -5,117 +5,213 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
     <style>
+        /* General Styles */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #8e44ad, #3498db); /* Gradient background */
+            color: #333;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        header {
+            background: #2c3e50;
+            color: #ffffff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
             margin: 0;
         }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #74b9ff;
+        }
+
+        /* Card Container */
+        .form-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        /* Title */
         h2 {
-            color: #333;
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
         }
-        form {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+
+        /* Input Styles */
         label {
             display: block;
-            margin-bottom: 8px;
+            font-size: 0.9rem;
+            font-weight: bold;
             color: #555;
+            margin-bottom: 5px;
+            text-align: left;
         }
+
         input[type="text"],
         input[type="password"],
         input[type="email"] {
             width: 100%;
             padding: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
+
+        input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+            outline: none;
+        }
+
+        /* Button Styles */
         button {
-            background: #007bff;
-            color: #fff;
+            width: 100%;
+            background: #3498db;
+            color: #ffffff;
             border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
             cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
         }
+
         button:hover {
-            background: #0056b3;
+            background: #2980b9;
+            transform: scale(1.02);
+        }
+
+        /* Footer Styles */
+        footer {
+            background: #2c3e50;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 20px;
+            margin-top: auto;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #74b9ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            nav ul li {
+                margin: 0 10px;
+            }
+
+            .form-card {
+                padding: 20px;
+            }
         }
     </style>
-    <script>
-        function validateRegistrationForm() {
-            var phone = document.getElementById("phone").value;
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
-            var confirmPassword = document.getElementById("confirmPassword").value;
-            var hotelPassword = document.getElementById("hotelPassword").value;
-
-            var phonePattern = /^[0-9]{10}$/;
-            var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-
-            if (!phonePattern.test(phone)) {
-                alert("Invalid phone number format.");
-                return false;
-            }
-            if (!emailPattern.test(email)) {
-                alert("Invalid email format.");
-                return false;
-            }
-            if (password.length !== 8) {
-                alert("Password must be exactly 8 characters long.");
-                return false;
-            }
-            if (password !== confirmPassword) {
-                alert("Passwords do not match.");
-                return false;
-            }
-            if (hotelPassword !== '123') {
-                alert("Invalid hotel password.");
-                return false;
-            }
-            return true;
-        }
-    </script>
 </head>
 <body>
-    <h2>User Registration</h2>
-    <form action="register.php" method="post" onsubmit="return validateRegistrationForm()">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <br><br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <br><br>
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required>
-        <br><br>
-        <label for="phone">Phone Number:</label>
-        <input type="text" id="phone" name="phone" required>
-        <br><br>
-        <label for="country">Country:</label>
-        <input type="text" id="country" name="country" required>
-        <br><br>
-        <label for="room">Room Number:</label>
-        <input type="text" id="room" name="room" required>
-        <br><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <br><br>
-        <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" required>
-        <br><br>
-        <label for="hotelPassword">Hotel Password:</label>
-        <input type="password" id="hotelPassword" name="hotelPassword" required>
-        <br><br>
-        <button type="submit">Register</button>
-    </form>
+    <!-- Header Section -->
+    <header>
+        <h1>Hotel Portal</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Form Section -->
+    <div class="form-card">
+        <h2>User Registration</h2>
+        <form action="register.php" method="post" onsubmit="return validateRegistrationForm()">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" name="phone" required>
+
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="country" required>
+
+            <label for="room">Room Number:</label>
+            <input type="text" id="room" name="room" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+            <label for="hotelPassword">Hotel Password:</label>
+            <input type="password" id="hotelPassword" name="hotelPassword" required>
+
+            <button type="submit">Register</button>
+            <small>All fields are mandatory</small>
+        </form>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        &copy; 2025 Hotel Portal | Designed with Group 36 | <a href="#">Privacy Policy</a>
+    </footer>
 </body>
 </html>
